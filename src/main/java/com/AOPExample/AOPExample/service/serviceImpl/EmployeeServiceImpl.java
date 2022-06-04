@@ -23,6 +23,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public String printHello() {
+
         return "Hello world!";
+//        throw  new RuntimeException("錯誤啦");
     }
 }

@@ -47,6 +47,13 @@ public class EmployeeServiceAspect {
         System.out.println(result+"我用AfterReturning修改了最後的回傳資料，但這個修改不會傳到前端去(?)，因為這是已經還傳以後才執行的!!");
     }
 
+    @AfterThrowing(value = "execution(* printHello())",throwing="theExc" )
+    public void afterThrowingExcHello(JoinPoint joinPoint, Throwable theExc) {
+        System.out.println("afterThrowingExcHello method:" + joinPoint.getSignature());
+        System.out.println("afterThrowingExcHello hello world!");
+        System.out.println("我丟出來的錯誤"+theExc);
+    }
+
 //    @After(value = "execution(* com.AOPExample.AOPExample.service.EmployeeService.*(..)) && args(name,empId)")
 //    public void afterAdvice(JoinPoint joinPoint, String name, String empId) {
 //        System.out.println("After method:" + joinPoint.getSignature());
