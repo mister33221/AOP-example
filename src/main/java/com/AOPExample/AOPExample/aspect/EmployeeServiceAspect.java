@@ -37,7 +37,6 @@ public class EmployeeServiceAspect {
     @Before(value = "execution(* printHello())")
     public void aroundAdviceHello(JoinPoint joinPoint) {
         System.out.println("Before method:" + joinPoint.getSignature());
-
         System.out.println("Before hello world!");
     }
 
@@ -45,13 +44,12 @@ public class EmployeeServiceAspect {
     public void afterReturningHello(JoinPoint joinPoint, String result) {
         System.out.println("afterReturningHello method:" + joinPoint.getSignature());
         System.out.println("afterReturningHello hello world!");
-        System.out.println(result);
+        System.out.println(result+"我用AfterReturning修改了最後的回傳資料，但這個修改不會傳到前端去(?)，因為這是已經還傳以後才執行的!!");
     }
 
 //    @After(value = "execution(* com.AOPExample.AOPExample.service.EmployeeService.*(..)) && args(name,empId)")
 //    public void afterAdvice(JoinPoint joinPoint, String name, String empId) {
 //        System.out.println("After method:" + joinPoint.getSignature());
-//
 //        System.out.println("Successfully created Employee with name - " + name + " and id - " + empId);
 //    }
 
