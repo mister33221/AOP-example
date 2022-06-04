@@ -15,12 +15,17 @@ public class EmployeeServiceAspect {
     // JoinPoint对象封装了SpringAop中切面方法的信息,在切面方法中添加JoinPoint参数,就可以获取到封装了该方法信息的JoinPoint对象.
 
     // 這種value表示 在EmployeeService中的所有 包含參數name,empId的方法都會通過這裡
-//    @Before(value = "execution(* com.AOPExample.AOPExample.service.EmployeeService.*(..)) && args(name,empId)")
-//    public void beforeAdvice(JoinPoint joinPoint, String name, String empId) {
-//        System.out.println("Before method:" + joinPoint.getSignature());
-//
-//        System.out.println("Creating Employee with name - " + name + " and id - " + empId);
-//    }
+    @Before(value = "execution(* com.AOPExample.AOPExample.service.EmployeeService.*(..)) && args(name,empId)")
+    public void beforeAdvice(JoinPoint joinPoint, String name, String empId) {
+        System.out.println("Before method:" + joinPoint.getSignature());
+        //這樣取得會是陣列 不好操作
+        Object[] args = joinPoint.getArgs();
+        for (Object arg:args) {
+            System.out.println(arg);
+        }
+        //使用上面這種args()來取得比較好操作資料
+        System.out.println("Creating Employee with name - " + name + " and id - " + empId);
+    }
 
 //    這種value表示 在EmployeeService中的某一個方法 兩種都可以
 //    星星的地方 應該要填存取修是 以及回傳型別 這邊使用*就代表 任何存取修飾以及任何回傳型別都可以接受
@@ -30,10 +35,17 @@ public class EmployeeServiceAspect {
 //    @Before(value = "execution(String print*())")
 //    任何回傳型別都可以接受
     @Before(value = "execution(* printHello())")
-    public void aroundAdvice(JoinPoint joinPoint) {
+    public void aroundAdviceHello(JoinPoint joinPoint) {
         System.out.println("Before method:" + joinPoint.getSignature());
 
         System.out.println("Before hello world!");
+    }
+
+    @AfterReturning(value = "execution(* printHello())",returning="result" )
+    public void afterReturningHello(JoinPoint joinPoint, String result) {
+        System.out.println("afterReturningHello method:" + joinPoint.getSignature());
+        System.out.println("afterReturningHello hello world!");
+        System.out.println(result);
     }
 
 //    @After(value = "execution(* com.AOPExample.AOPExample.service.EmployeeService.*(..)) && args(name,empId)")
