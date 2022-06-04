@@ -22,10 +22,14 @@ public class EmployeeServiceAspect {
         System.out.println("Creating Employee with name - " + name + " and id - " + empId);
     }
 
-    // 這種value表示 在EmployeeService中的某一個方法 兩種都可以
-    // 星星的地方 應該要填存取修是 以及回傳型別 這邊使用*就代表 任何存取修飾以及任何回傳型別都可以接受
-    @Before(value = "execution(* com.AOPExample.AOPExample.service.EmployeeService.printHello())")
+//    這種value表示 在EmployeeService中的某一個方法 兩種都可以
+//    星星的地方 應該要填存取修是 以及回傳型別 這邊使用*就代表 任何存取修飾以及任何回傳型別都可以接受
+//    @Before(value = "execution(* com.AOPExample.AOPExample.service.EmployeeService.printHello())")
 //    @Before(value = "execution(String printHello())")
+//    任何print開頭的方法
+//    @Before(value = "execution(String print*())")
+//    任何回傳型別都可以接受
+    @Before(value = "execution(* printHello())")
     public void aroundAdvice(JoinPoint joinPoint) {
         System.out.println("Before method:" + joinPoint.getSignature());
 
