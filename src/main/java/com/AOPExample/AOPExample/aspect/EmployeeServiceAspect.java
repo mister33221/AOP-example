@@ -55,11 +55,12 @@ public class EmployeeServiceAspect {
         System.out.println("我丟出來的錯誤"+theExc);
     }
 
-//    around要有return才會有值傳回去 不然到這邊就沒了
+//    around要有proceedingJoinPoint.proceed()和return才會有值傳回去 不然到這邊就沒了
 //    且使用ProceedingJoinPoint.proceed()要有throws
     @Around(value = "execution(* printHello())" )
     public Object aroundHello(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         System.out.println("aroundHello method:" + proceedingJoinPoint.getSignature());
+        // 呼叫proceed() 方法開始執行原方法
         Object result = proceedingJoinPoint.proceed();
         System.out.println("aroundHello hello world!");
         return result;
