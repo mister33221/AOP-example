@@ -6,12 +6,15 @@ import com.AOPExample.AOPExample.service.EmployeeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.logging.Logger;
+
 @RestController
 //@Controller
 public class EmployeeController {
 
 
     private EmployeeService employeeService;
+    private static Logger myLogger = Logger.getLogger(EmployeeController.class.getName());
 
 
     public EmployeeController(EmployeeService employeeService) {
@@ -20,7 +23,7 @@ public class EmployeeController {
 
     @RequestMapping(value = "/helloWorld", method = RequestMethod.GET)
     public String helloWorld() {
-
+        myLogger.info("myLogger.info : "+employeeService.printHello());
         return employeeService.printHello();
 
     }
