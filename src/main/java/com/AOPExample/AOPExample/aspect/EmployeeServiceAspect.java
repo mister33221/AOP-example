@@ -2,10 +2,7 @@ package com.AOPExample.AOPExample.aspect;
 
 
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 @Aspect
@@ -43,6 +40,20 @@ public class EmployeeServiceAspect {
         System.out.println("Successfully created Employee with name - " + name + " and id - " + empId);
     }
 
+//  使用Pointcut 來多次使用該切點
+    @Pointcut(value = "execution(* com.AOPExample.AOPExample.service.EmployeeService.*(..)) && args(name,empId)")
+    public void Pointcut(String name, String empId) { }
+
+    @After("Pointcut(name, empId)")
+    public void PointcutAfter(JoinPoint joinPoint, String name, String empId) {
+        System.out.println("After method:" + joinPoint.getSignature());
+        System.out.println("Successfully created Employee with name - " + name + " and id - " + empId);
+    }
+    @Before("Pointcut(name, empId)")
+    public void PointcutBefore(JoinPoint joinPoint, String name, String empId) {
+        System.out.println("After method:" + joinPoint.getSignature());
+        System.out.println("Successfully created Employee with name - " + name + " and id - " + empId);
+    }
     
 
 
